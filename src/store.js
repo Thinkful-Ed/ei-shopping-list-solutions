@@ -6,8 +6,8 @@ const findById = function (id) {
   return this.items.find(currentItem => currentItem.id === id);
 };
 
-const addItem = function (name) {
-  this.items.push(name);
+const addItem = function (item) {
+  this.items.push(item);
 };
 
 const findAndDelete = function (id) {
