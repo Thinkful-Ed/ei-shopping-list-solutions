@@ -8,7 +8,7 @@ const generateItemElement = function (item) {
   if (!item.checked) {
     itemTitle = `
       <form class="js-edit-item">
-        <input class="shopping-item" type="text" value="${item.name}" />
+        <input class="shopping-item" type="text" value="${item.name}" required />
       </form>
     `;
   }
@@ -83,8 +83,8 @@ const handleNewItemSubmit = function () {
         store.addItem(newItem);
         render();
       })
-      .catch((err) => {
-        store.setError(err.message);
+      .catch((error) => {
+        store.setError(error.message);
         renderError();
       });
   });
@@ -105,9 +105,9 @@ const handleDeleteItemClicked = function () {
         store.findAndDelete(id);
         render();
       })
-      .catch((err) => {
-        console.log(err);
-        store.setError(err.message);
+      .catch((error) => {
+        console.log(error);
+        store.setError(error.message);
         renderError();
       });
   });
@@ -118,14 +118,15 @@ const handleEditShoppingItemSubmit = function () {
     event.preventDefault();
     const id = getItemIdFromElement(event.currentTarget);
     const itemName = $(event.currentTarget).find('.shopping-item').val();
+
     api.updateItem(id, { name: itemName })
       .then(() => {
         store.findAndUpdate(id, { name: itemName });
         render();
       })
-      .catch((err) => {
-        console.log(err);
-        store.setError(err.message);
+      .catch((error) => {
+        console.log(error);
+        store.setError(error.message);
         renderError();
       });
   });
@@ -140,8 +141,8 @@ const handleItemCheckClicked = function () {
         store.findAndUpdate(id, { checked: !item.checked });
         render();
       })
-      .catch((err) => {
-        store.setError(err.message);
+      .catch((error) => {
+        store.setError(error.message);
         renderError();
       });
   });
